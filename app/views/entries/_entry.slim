@@ -1,5 +1,12 @@
 .card-panel.entry
-  .date = entry.created_at.strftime("%B %e, %Y at %l:%M")
-  .updated = entry.updated_at.strftime("%B %e, %Y at %l:%M")
+  .date = entry.created_at.strftime("%B %e, %Y at %l:%M%P")
+  .updated = entry.updated_at.strftime("%B %e, %Y at %l:%M%P")
+  a.secondary-content.options.dropdown-button data-activates="entry-#{entry.id}" data-beloworigin="true" data-alignment="right"
+    == mi.more_vert
+  ul.dropdown-content id="entry-#{entry.id}"
+    li.edit
+      a Edit
+    li.destroy
+      a Destroy
   .title = entry.title
   .entry-text = simple_format(entry.entry)
