@@ -1,0 +1,20 @@
+h1 Users#show
+p Find me in app/views/users/show.html.slim
+
+div.container
+  .row
+    .col.s12
+      = form_with model: @entry, id: 'new-entry' do |f|
+        .input-field
+          = f.text_field :title
+          = f.label :title
+        .input-field
+          = f.text_area :entry, class: "materialize-textarea"
+          = f.label :entry
+        .input-field
+          = f.submit "Save", class: 'btn btn-waves', id: 'submit-entry'
+      .entries
+        - @entries.each do |entry|
+          = render entry
+    .side-nav
+      .calendar

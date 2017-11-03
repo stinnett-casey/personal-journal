@@ -1,0 +1,5 @@
+.card-panel.entry
+  .date = entry.created_at.strftime("%B %e, %Y at %l:%M")
+  .updated = entry.updated_at.strftime("%B %e, %Y at %l:%M")
+  .title = entry.title
+  .entry-text = simple_format(entry.entry)
