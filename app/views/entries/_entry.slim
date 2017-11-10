@@ -7,7 +7,7 @@
     li.edit
       a Edit
     li.destroy
-      a Destroy
+      = link_to "Destroy", entry, method: :delete, remote: true
   .title = entry.title
   .entry-text = simple_format(entry.entry)
 

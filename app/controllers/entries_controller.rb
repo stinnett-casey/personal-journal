@@ -30,6 +30,12 @@ class EntriesController < ApplicationController
   end
 
   def destroy
+    respond_to do |format|
+      @entry = Entry.find(params[:id])
+      if @entry.destroy
+        format.js
+      end
+    end
   end
 
   private

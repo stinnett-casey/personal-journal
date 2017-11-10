@@ -20,7 +20,7 @@ $(document).on 'turbolinks:load', ->
     onCtrlEnter e, ->
       console.log 'will save'
 
-
+  # to edit an entry
   $(document).on 'click', '.entry .edit', ->
     if $('#current-edit').length == 0
       id = $(this).closest('.entry').attr('data-id') # get id of entry
@@ -50,6 +50,12 @@ $(document).on 'turbolinks:load', ->
       $content.hide()
     else
       $('#current-edit').find('#current-edit-content').focus()
+
+  # to destroy en entry
+  $(document).on 'ajax:success', '.entry .destroy', ->
+    $(this).closest('.entry').slideUp 'slow', ->
+      $(this).remove()
+
 
   $(document).on 'keydown', '#current-edit-content', (e) ->
     $elem = $(this)
