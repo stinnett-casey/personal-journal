@@ -21,6 +21,12 @@ class EntriesController < ApplicationController
   end
 
   def update
+    respond_to do |format|
+      @entry = Entry.find(params[:id])
+      if @entry.update_attributes(entry_params)
+        format.js
+      end
+    end
   end
 
   def destroy

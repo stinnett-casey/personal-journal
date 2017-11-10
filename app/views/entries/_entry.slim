@@ -1,6 +1,6 @@
-.card-panel.entry
+.card-panel.entry data-id="#{entry.id}"
   .date = entry.created_at.strftime("%B %e, %Y at %l:%M%P")
-  .updated = entry.updated_at.strftime("%B %e, %Y at %l:%M%P")
+  .updated = time_ago_in_words entry.updated_at
   a.secondary-content.options.dropdown-button data-activates="entry-#{entry.id}" data-beloworigin="true" data-alignment="right"
     == mi.more_vert
   ul.dropdown-content id="entry-#{entry.id}"
@@ -10,3 +10,4 @@
       a Destroy
   .title = entry.title
   .entry-text = simple_format(entry.entry)
+

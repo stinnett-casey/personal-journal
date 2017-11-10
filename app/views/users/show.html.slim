@@ -15,6 +15,7 @@ div.container
           = f.submit "Save", class: 'btn btn-waves', id: 'submit-entry'
       .entries
         - @entries.each do |entry|
-          = render entry
+          .entry-wrapper
+            = render entry
     .side-nav
       .calendar
