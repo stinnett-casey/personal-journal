@@ -2,11 +2,11 @@ module CalendarHelper
   class Calendar
     def self.create(year, month)
       calendar_array = []
+      date = Date.new year, month
 
-      date = Date.new(year, month)
       daysInWeek = 7
-      startDay = date.wday # 6
-      daysInMonth = date.next_month.prev_day.day # 31
+      startDay = date.wday
+      daysInMonth = date.end_of_month.day
       numRows = (startDay+daysInMonth - 1)/daysInWeek
 
       if ((startDay+daysInMonth) % daysInWeek != 0)
@@ -16,12 +16,13 @@ module CalendarHelper
       for i in 0...numRows # loop through weeks
         calendar_array[i] = []
         for j in 0...daysInWeek # will loop 7 times for 7 days
+          entry = Entry.where(created_at: date.beginning_of_day..date.end_of_day).first
           if j == date.wday
-            calendar_array[i] << {date: date, id: 1}
+            calendar_array[i] << {date: date, entry_id: (entry ? entry.id : nil)}
             date += 1
           else
             # fill from previous month
-            calendar_array[i] << {date: (date - (date.wday - j)), id: 1}
+            calendar_array[i] << {date: (date - (date.wday - j)), entry_id: (entry ? entry.id : nil)}
           end
         end
       end
@@ -30,9 +31,9 @@ module CalendarHelper
     end
   end
 
-  def calendar(year, month)
+  def calendar(date)
     html = '<calendar>'
-    html << "<h5>#{Date.new(year, month).strftime("%B")}</h5>"
+    html << "<h5>#{date.strftime("%B")}</h5>"
     html << %(<week-headers>
       <day-header>S</day-header>
       <day-header>M</day-header>
@@ -43,17 +44,17 @@ module CalendarHelper
       <day-header>S</day-header>
     </week-headers>
     )
-    cal_arr = Calendar.create(year, month)
+    cal_arr = Calendar.create(date.year, date.month)
     cal_arr.each do |week|
       html << '<week>'
       week.each do |day|
         extra_class = ''
-        if day[:date].to_date.month < month
+        if day[:date].month < date.month
           extra_class = 'prev-month'
-        elsif day[:date].to_date.month > month
+        elsif day[:date].month > date.month
           extra_class = 'next-month'
         end
-        html << %(<day class="#{extra_class}" data-entry-id="#{day[:entry_id]}">#{day[:date].day}</day>)
+        html << %(<day class="#{extra_class} #{(day[:entry_id] ? 'entry' : '')}" data-entry-id="#{day[:entry_id]}">#{day[:date].day}</day>)
       end
       html << '</week>'
     end
