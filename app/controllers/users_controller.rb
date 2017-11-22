@@ -5,5 +5,6 @@ class UsersController < ApplicationController
   def show
     @entry = Entry.new
     @entries = current_user.entries.reverse
+    @date = Date.today
   end
 end
