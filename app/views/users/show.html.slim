@@ -1,9 +1,6 @@
-h1 Users#show
-p Find me in app/views/users/show.html.slim
-
-div.container
+div
   .row
-    .col.s12
+    .col.s9
       = form_with model: @entry, id: 'new-entry' do |f|
         .input-field
           = f.text_field :title
@@ -17,5 +14,3 @@ div.container
         - @entries.each do |entry|
           .entry-wrapper
             = render entry
-    .side-nav
-      .calendar

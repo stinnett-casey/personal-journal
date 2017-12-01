@@ -11,6 +11,11 @@
  * It is generally better to create a new file per style scope.
  *
  */
- @import "materialize";
+ $red: #E53D36;
+ $yellow-sp: #FFA644;
+ $light-grn: #998A2F;
+ $dark-grn: #295949;
+ $dark-blue: #002D40;
+ @import 'materialize';
  @import "material_icons";
  @import "users";

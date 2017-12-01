@@ -14,7 +14,15 @@ class EntriesController < ApplicationController
     end
   end
 
+  # localhost:3000/entry?id=n&date=some_date
   def show
+    parsed_date = query_params_date_as_array
+    @date = Date.new(parsed_date[0], parsed_date[1], parsed_date[2])
+    if !id.blank?
+      @entry = Entry.find(id)
+    else
+      @entry = Entry.new
+    end
   end
 
   def edit
@@ -42,5 +50,9 @@ class EntriesController < ApplicationController
 
   def entry_params
     params.require(:entry).permit(:title, :entry)
+  end
+
+  def query_params_date_as_array
+    params[:date].split('-').map(&:to_i)
   end
 end

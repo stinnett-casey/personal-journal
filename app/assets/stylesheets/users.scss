@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300|Roboto+Condensed');
+
 .entry {
   position: relative;
 
@@ -10,5 +12,55 @@
     top: 10px;
     right: 5px;
     cursor: pointer;
+  }
+}
+
+html {
+  color: rgba(0,0,0,.87);
+}
+
+body {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+$day-width: 100/7 * 1%;
+
+#calendar {
+  height: 100%;
+  position: fixed;
+  right: 0;
+  top: -10px;
+  font-family: 'Montserrat', sans-serif;
+  padding-top: 45px;
+
+  calendar {
+    width: 300px;
+
+    week, week-headers {
+      display: flex;
+
+      day, day-header {
+        display: inline-block;
+        width: $day-width;
+        text-align: center;
+        padding: 5px 0;
+
+        &.prev-month, &.next-month {
+          color: rgba(0,0,0,.5);
+        }
+      }
+      day {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+        cursor: pointer;
+
+        &.entry {
+          border-color: $yellow-sp;
+        }
+        &:hover {
+          color: $yellow-sp;
+          box-shadow: 0 1px 5px rgba(0,0,0,.2);
+        }
+      }
+    }
   }
 }

@@ -61,4 +61,12 @@ $(document).on 'turbolinks:load', ->
     $elem = $(this)
     onCtrlEnter e, ->
       $('#current-edit').find('[type=submit]').click()
+
+  $('.button-collapse').sideNav 
+        menuWidth: 300,
+        edge: 'right',
+        closeOnClick: true,
+        draggable: true,
+        onOpen: -> console.log 'open',
+        onClose: -> console.log 'close'
     
