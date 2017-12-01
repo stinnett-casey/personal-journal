@@ -1,6 +1,7 @@
 $('.entries').prepend("<%= j render @entry %>");
 $('#new-entry')[0].reset();
 $('#new-entry textarea').trigger('autoresize');
+$('#new-entry input').focus();
 // $('html, body').animate({
 //   scrollTop: $entry.height()
 // }, 1500);

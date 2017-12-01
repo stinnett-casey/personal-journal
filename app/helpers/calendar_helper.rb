@@ -15,19 +15,19 @@ module CalendarHelper
 
       # an attempt to speed things up with a single DB call rather than one for each day
       # month_entries = Entry.where('extract(month from created_at) = ?', date.month) # for not sqlite
-      month_entries = Entry.where("cast(strftime('%m', created_at) as int) = ?", date.month) # for sqlite
+      month_entries = Entry.where("cast(strftime('%m', entry_date) as int) = ?", date.month) # for sqlite
 
       for i in 0...numRows # loop through weeks
         calendar_array[i] = []
         for j in 0...daysInWeek # will loop 7 times for 7 days
           if j == date.wday
-            day_entries = month_entries.select { |entry| entry.created_at.to_date.day == date.day }
+            day_entries = month_entries.select { |entry| entry.entry_date.to_date.day == date.day && entry.entry_date.to_date.month == date.month }
             calendar_array[i] << {date: date, entry_ids: day_entries.map { |entry| entry.id }}
             date += 1
           else
             # fill from previous month
             prev_date = date - (date.wday - j)
-            day_entries = Entry.where("DATE(created_at) = ?", prev_date)
+            day_entries = Entry.where("DATE(entry_date) = ?", prev_date)
             calendar_array[i] << {date: prev_date, entry_ids: day_entries.map { |entry| entry.id }}
           end
         end
