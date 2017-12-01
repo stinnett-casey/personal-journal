@@ -49,7 +49,7 @@ class EntriesController < ApplicationController
   private
 
   def entry_params
-    params.require(:entry).permit(:title, :entry)
+    params.require(:entry).permit(:title, :entry, :entry_date)
   end
 
   def query_params_date_as_array
