@@ -1,16 +1,13 @@
-div
-  .row
-    .col.s9
-      = form_with model: @entry, id: 'new-entry' do |f|
-        .input-field
-          = f.text_field :title
-          = f.label :title
-        .input-field
-          = f.text_area :entry, class: "materialize-textarea"
-          = f.label :entry
-        .input-field
-          = f.submit "Save", class: 'btn btn-waves', id: 'submit-entry'
-      .entries
-        - @entries.each do |entry|
-          .entry-wrapper
-            = render entry
+= form_with model: @entry, id: 'new-entry' do |f|
+  = f.hidden_field :entry_date, value: Date.today
+  .input-field
+    = f.text_field :title
+    = f.label :title
+  .input-field
+    = f.text_area :entry, class: "materialize-textarea"
+    = f.label :entry
+  .input-field
+    = f.submit "Save", class: 'btn btn-waves', id: 'submit-entry'
+.entries
+  - @entries.each do |entry|
+    = render entry

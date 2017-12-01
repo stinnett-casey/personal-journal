@@ -6,6 +6,7 @@ onCtrlEnter = (e, func) ->
   func() if (e.ctrlKey || e.metaKey) && (e.keyCode == 13 || e.keyCode == 10)
 
 $(document).on 'turbolinks:load', ->
+  $('select').material_select()
   # Allows for cmd + enter to submit form
   $(document).on 'keydown', '#new-entry textarea', (e) ->
     onCtrlEnter e, ->
@@ -26,7 +27,7 @@ $(document).on 'turbolinks:load', ->
       id = $(this).closest('.entry').attr('data-id') # get id of entry
       $title = $(this).closest('.entry').find('.title') # get title
       $content = $(this).closest('.entry').find('.entry-text') # get entry
-      $(this).closest('.entry').append("""
+      $(this).closest('.entry-content').append("""
         <form id="current-edit" action="/entries/#{id}" accept-charset="UTF-8" data-remote="true" method="post">
           <input name="utf8" type="hidden" value="✓">
           <input type="hidden" name="_method" value="patch">
