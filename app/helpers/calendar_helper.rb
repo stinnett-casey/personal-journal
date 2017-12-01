@@ -13,20 +13,26 @@ module CalendarHelper
           numRows += 1
       end
 
+      # an attempt to speed things up with a single DB call rather than one for each day
+      # month_entries = Entry.where('extract(month from created_at) = ?', date.month) # for not sqlite
+      month_entries = Entry.where("cast(strftime('%m', created_at) as int) = ?", date.month) # for sqlite
+
       for i in 0...numRows # loop through weeks
         calendar_array[i] = []
         for j in 0...daysInWeek # will loop 7 times for 7 days
-          entry = Entry.where(created_at: date.beginning_of_day..date.end_of_day).first
           if j == date.wday
-            calendar_array[i] << {date: date, entry_id: (entry ? entry.id : nil)}
+            day_entries = month_entries.select { |entry| entry.created_at.to_date.day == date.day }
+            calendar_array[i] << {date: date, entry_ids: day_entries.map { |entry| entry.id }}
             date += 1
           else
             # fill from previous month
-            calendar_array[i] << {date: (date - (date.wday - j)), entry_id: (entry ? entry.id : nil)}
+            prev_date = date - (date.wday - j)
+            day_entries = Entry.where("DATE(created_at) = ?", prev_date)
+            calendar_array[i] << {date: prev_date, entry_ids: day_entries.map { |entry| entry.id }}
           end
         end
       end
-
+      p calendar_array
       calendar_array
     end
   end
@@ -54,7 +60,7 @@ module CalendarHelper
         elsif day[:date].month > date.month
           extra_class = 'next-month'
         end
-        html << %(<day class="#{extra_class} #{(day[:entry_id] ? 'entry' : '')}" data-entry-id="#{day[:entry_id]}">#{day[:date].day}</day>)
+        html << %(<day class="#{extra_class} #{(!day[:entry_ids].blank? ? 'entry' : '')}"><a href="/entry?date=#{day[:date]}">#{day[:date].day}</a></day>)
       end
       html << '</week>'
     end
