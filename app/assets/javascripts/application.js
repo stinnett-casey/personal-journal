@@ -12,6 +12,7 @@
 //
 //= require rails-ujs
 //= require jquery
+//= require best_in_place
 //= require turbolinks
 //= require materialize-sprockets
 //= require_tree .
