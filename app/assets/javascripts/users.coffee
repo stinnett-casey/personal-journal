@@ -6,7 +6,8 @@ onCtrlEnter = (e, func) ->
   func() if (e.ctrlKey || e.metaKey) && (e.keyCode == 13 || e.keyCode == 10)
 
 $(document).on 'turbolinks:load', ->
-  $('select').material_select()
+    # Activating Best In Place
+    $('.best_in_place').best_in_place()
   # Allows for cmd + enter to submit form
   $(document).on 'keydown', '#new-entry textarea', (e) ->
     onCtrlEnter e, ->

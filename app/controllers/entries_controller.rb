@@ -33,6 +33,7 @@ class EntriesController < ApplicationController
       @entry = Entry.find(params[:id])
       if @entry.update_attributes(entry_params)
         format.js
+        format.json { respond_with_bip(@entry) }
       end
     end
   end
