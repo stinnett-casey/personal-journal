@@ -1,2 +1,4 @@
-h1 Entries#show
-p Find me in app/views/entries/show.html.slim
+= render 'entries/form'
+.entries
+  - @entries.each do |entry|
+    = render entry

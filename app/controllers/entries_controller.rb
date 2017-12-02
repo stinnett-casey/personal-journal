@@ -18,11 +18,8 @@ class EntriesController < ApplicationController
   def show
     parsed_date = query_params_date_as_array
     @date = Date.new(parsed_date[0], parsed_date[1], parsed_date[2])
-    if !id.blank?
-      @entry = Entry.find(id)
-    else
-      @entry = Entry.new
-    end
+    @entry = Entry.new
+    @entries = Entry.on_date(@date)
   end
 
   def edit

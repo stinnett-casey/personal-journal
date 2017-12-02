@@ -1,6 +1,6 @@
 .entry-wrapper.entry data-id="#{entry.id}"
   .card-panel.entry-content
-    .date = entry.created_at.strftime("%B %e, %Y at %l:%M%P")
+    .date = entry.entry_date.strftime("%B %e, %Y at %l:%M%P")
     .updated = time_ago_in_words entry.updated_at
     a.secondary-content.options.dropdown-button data-activates="entry-#{entry.id}" data-beloworigin="true" data-alignment="right"
       == mi.more_vert
@@ -10,5 +10,5 @@
       li.destroy
         = link_to "Destroy", entry, method: :delete, remote: true
     .title = best_in_place entry, :title
-    .entry-text = best_in_place entry, :entry, as: :textarea, display_with: :simple_format, classes: 'materialize-textarea'
+    .entry-text = best_in_place entry, :entry, as: :textarea, display_with: :simple_format, class: 'materialize-textarea'
 
