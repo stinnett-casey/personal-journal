@@ -2,6 +2,7 @@ $('.entries').prepend("<%= j render @entry %>");
 $('#new-entry')[0].reset();
 $('#new-entry textarea').trigger('autoresize');
 $('#new-entry input').focus();
+$('.best_in_place').best_in_place(); //reload best_in_place fields
 // $('html, body').animate({
 //   scrollTop: $entry.height()
 // }, 1500);

@@ -9,6 +9,6 @@
         a Edit
       li.destroy
         = link_to "Destroy", entry, method: :delete, remote: true
-    .title = entry.title
-    .entry-text = simple_format(entry.entry)
+    .title = best_in_place entry, :title
+    .entry-text = best_in_place entry, :entry, as: :textarea, display_with: :simple_format, classes: 'materialize-textarea'
 
