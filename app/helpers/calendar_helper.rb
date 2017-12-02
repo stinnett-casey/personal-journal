@@ -27,7 +27,7 @@ module CalendarHelper
           else
             # fill from previous month
             prev_date = date - (date.wday - j)
-            day_entries = Entry.where("DATE(entry_date) = ?", prev_date)
+            day_entries = Entry.on_date(prev_date)
             calendar_array[i] << {date: prev_date, entry_ids: day_entries.map { |entry| entry.id }}
           end
         end
